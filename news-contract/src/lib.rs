@@ -1,19 +1,19 @@
-extern crate serde; 
+extern crate serde;
 extern crate serde_json;
 
-use serde::{Serialize, Deserialize};
-use std::fmt::{self, Formatter, Display};
+use serde::{Deserialize, Serialize};
+use std::fmt::{self, Display, Formatter};
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct News{
-    pub id:String,
-    pub desc:String,
-    pub url:String,
+pub struct News {
+    pub id: String,
+    pub desc: String,
+    pub url: String,
 }
 
 impl Display for News {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        write!(f, "{}:{}:{}",self.id, self.desc, self.url)
+        write!(f, "{}:{}:{}", self.id, self.desc, self.url)
     }
 }
 
@@ -23,12 +23,11 @@ mod tests {
 
     #[test]
     fn test_display() {
-        let n = News{
-            id:String::from("1"),
-            desc:String::from("google"),
-            url:String::from("google.com"),
+        let n = News {
+            id: String::from("1"),
+            desc: String::from("google"),
+            url: String::from("google.com"),
         };
-        println!("{}",n);
+        println!("{}", n);
     }
-
 }
