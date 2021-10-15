@@ -24,19 +24,19 @@ cargo build
 In a separate terminal:
 
 ```bash
-./run-docker-postgress.sh
+just run-postgres
 ```
 
 Create database:
 
 ```bash
-(cd news-migrations && cargo run)
+just create-database
 ```
 
 ### Run service
 
 ```bash
-RUST_LOG=info cargo run --bin news-service
+just run-service
 ```
 ### Test it
 
