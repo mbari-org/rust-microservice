@@ -17,7 +17,7 @@ pub async fn connect() -> Option<tokio_postgres::Client> {
             eprintln!("connection error: {}", e);
         }
     });
-    return Some(client);
+    Some(client)
 }
 
 pub async fn get_news_by_id(id: &str) -> Option<News> {
@@ -35,7 +35,7 @@ pub async fn get_news_by_id(id: &str) -> Option<News> {
         desc: row.get(2),
         url: row.get(1),
     };
-    return Some(news);
+    Some(news)
 }
 
 pub async fn delete_news_by_id(id: &str) -> Option<bool> {
@@ -44,7 +44,7 @@ pub async fn delete_news_by_id(id: &str) -> Option<bool> {
         .query("DELETE FROM news where id::text=$1", &[&id])
         .await
         .unwrap();
-    return Some(true);
+    Some(true)
 }
 
 pub async fn insert_news(url: &str, desc: &str) -> Option<News> {
@@ -55,7 +55,7 @@ pub async fn insert_news(url: &str, desc: &str) -> Option<News> {
         desc: String::from(desc),
         url: String::from(url),
     };
-    return Some(news);
+    Some(news)
 }
 
 pub async fn list_news() -> Option<Vec<News>> {
@@ -73,7 +73,7 @@ pub async fn list_news() -> Option<Vec<News>> {
         };
         vec_news.push(news);
     }
-    return Some(vec_news);
+    Some(vec_news)
 }
 
 pub async fn mocked_list_news() -> Option<Vec<News>> {
@@ -87,5 +87,5 @@ pub async fn mocked_list_news() -> Option<Vec<News>> {
         desc: String::from("google"),
         url: String::from("google.com"),
     });
-    return Some(vec_news);
+    Some(vec_news)
 }
