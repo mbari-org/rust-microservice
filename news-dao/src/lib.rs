@@ -3,7 +3,6 @@ extern crate tokio_postgres;
 extern crate uuid;
 
 use news_contract::News;
-use tokio;
 use tokio_postgres::NoTls;
 
 pub async fn connect() -> Option<tokio_postgres::Client> {
@@ -21,7 +20,7 @@ pub async fn connect() -> Option<tokio_postgres::Client> {
     return Some(client);
 }
 
-pub async fn get_news_by_id(id: &String) -> Option<News> {
+pub async fn get_news_by_id(id: &str) -> Option<News> {
     let client = connect().await.unwrap();
     let rows = &client
         .query(
@@ -39,7 +38,7 @@ pub async fn get_news_by_id(id: &String) -> Option<News> {
     return Some(news);
 }
 
-pub async fn delete_news_by_id(id: &String) -> Option<bool> {
+pub async fn delete_news_by_id(id: &str) -> Option<bool> {
     let client = connect().await.unwrap();
     let _rows = &client
         .query("DELETE FROM news where id::text=$1", &[&id])
@@ -48,7 +47,7 @@ pub async fn delete_news_by_id(id: &String) -> Option<bool> {
     return Some(true);
 }
 
-pub async fn insert_news(url: &String, desc: &String) -> Option<News> {
+pub async fn insert_news(url: &str, desc: &str) -> Option<News> {
     let client = connect().await.unwrap();
     let _row = client.query("INSERT INTO news VALUES(uuid_in(md5(random()::text || clock_timestamp()::text)::cstring),$1,$2)",&[&desc,&url]).await.unwrap();
     let news = News {
@@ -78,12 +77,11 @@ pub async fn list_news() -> Option<Vec<News>> {
 }
 
 pub async fn mocked_list_news() -> Option<Vec<News>> {
-    let mut vec_news = Vec::new();
-    vec_news.push(News {
+    let mut vec_news = vec![News {
         id: String::from("1234"),
         desc: String::from("google"),
         url: String::from("google.com"),
-    });
+    }];
     vec_news.push(News {
         id: String::from("1234"),
         desc: String::from("google"),

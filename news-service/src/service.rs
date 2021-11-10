@@ -3,14 +3,14 @@ extern crate news_dao;
 
 use news_contract::News;
 
-pub async fn get_news_by_id(id: &String) -> Option<News> {
+pub async fn get_news_by_id(id: &str) -> Option<News> {
     if id.is_empty() {
         return None;
     }
     return news_dao::get_news_by_id(id).await;
 }
 
-pub async fn delete_news_by_id(id: &String) -> Option<bool> {
+pub async fn delete_news_by_id(id: &str) -> Option<bool> {
     if id.is_empty() {
         return None;
     }
@@ -21,7 +21,7 @@ pub async fn list_news() -> Option<Vec<News>> {
     return news_dao::list_news().await;
 }
 
-pub async fn insert_news(url: &String, desc: &String) -> Option<News> {
+pub async fn insert_news(url: &str, desc: &str) -> Option<News> {
     if url.is_empty() || desc.is_empty() {
         return None;
     }

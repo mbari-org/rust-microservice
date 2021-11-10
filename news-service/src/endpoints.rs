@@ -4,7 +4,7 @@ mod service;
 
 #[get("/")]
 async fn index() -> impl Responder {
-    format!("Endpoints: /news ")
+    "Endpoints: /news ".to_string()
 }
 
 #[get("/news")]

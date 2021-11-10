@@ -21,8 +21,7 @@ run-postgres:
 
 # Create/migrate database
 create-database:
-	cd news-migrations
-	cargo run
+	(cd news-migrations && cargo run)
 
 # Run the service
 run-service:

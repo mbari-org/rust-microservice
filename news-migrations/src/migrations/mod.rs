@@ -24,7 +24,7 @@ impl NewsMigration for CreateTableNewsMigration {
             t.add_column("desc", types::text());
             t.add_column("url", types::text());
         });
-        let news_table = m.make::<Pg>().to_owned();
+        let news_table = m.make::<Pg>();
         println!("Table {} will be created", news_table);
 
         pg_client.execute(&news_table[..], &[])
