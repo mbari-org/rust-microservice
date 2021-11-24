@@ -37,7 +37,7 @@ just run-postgres
 Create database:
 
 ```bash
-just create-database
+just db-create
 ```
 
 ### Run service
@@ -50,8 +50,8 @@ just run-service
 In a separate terminal:
 
 ```bash
-curlie http://localhost:8080/news
-curlie put "http://localhost:8080/news/foo/example.com"
-curlie http://localhost:8080/news/863282a8-62f8-06b3-eb55-fbc44e444a0b
-curlie delete "http://localhost:8080/news/0dae39e4-fca2-b076-4f88-617dd3352d11"
+just db-news
+just db-news-add-some
+just db-news
+just db-news-delete <id>
 ```

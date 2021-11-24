@@ -1,5 +1,8 @@
 set dotenv-load := true
 
+# HTTP client program:
+hc := "curlie 2> /dev/null"
+
 _:
 	#!/usr/bin/env bash
 	if [ $(which fzf) ] && [ -x $(which fzf) ]; then
@@ -20,12 +23,25 @@ run-postgres:
 		postgres
 
 # Create/migrate database
-create-database:
+db-create:
 	(cd news-migrations && cargo run)
 
 # Run the service
 run-service:
 	RUST_LOG=info cargo run --bin news-service
+
+# See current news
+db-news:
+	{{hc}} http://localhost:8080/news
+
+# Add some news
+db-news-add-some:
+	{{hc}} put "http://localhost:8080/news/foo/foo.com"
+	{{hc}} put "http://localhost:8080/news/baz/baz.com"
+
+# Delete a news
+db-news-delete id:
+	{{hc}} delete "http://localhost:8080/news/{{id}}"
 
 # Run dockerized psql
 psql:
