@@ -54,4 +54,5 @@ just db-news
 just db-news-add-some
 just db-news
 just db-news-delete <id>
+just db-news-delete-all
 ```

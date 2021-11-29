@@ -1,7 +1,7 @@
 set dotenv-load := true
 
 # HTTP client program:
-hc := "curlie 2> /dev/null"
+hc := "curlie"  # "curlie 2> /dev/null"
 
 _:
 	#!/usr/bin/env bash
@@ -42,6 +42,10 @@ db-news-add-some:
 # Delete a news
 db-news-delete id:
 	{{hc}} delete "http://localhost:8080/news/{{id}}"
+
+# Delete all news
+db-news-delete-all:
+	{{hc}} delete "http://localhost:8080/news"
 
 # Run dockerized psql
 psql:
