@@ -31,8 +31,12 @@ run-service:
 	RUST_LOG=info cargo run --bin news-service
 
 # See current news
-db-news:
+db-news-all:
 	{{hc}} http://localhost:8080/news
+
+# See a news
+db-news id:
+	{{hc}} http://localhost:8080/news/{{id}}
 
 # Add some news
 db-news-add-some:

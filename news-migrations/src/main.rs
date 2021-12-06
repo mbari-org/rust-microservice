@@ -10,8 +10,10 @@ fn main() {
     let mut client =
         Client::connect("postgres://postgres:docker@127.0.0.1:5432/postgres", NoTls).unwrap();
 
-    let mut migrations = vec![CreateTableNewsMigration::new().run(&mut client)];
-    migrations.push(AddNewsRecordsMigration::new().run(&mut client));
+    let migrations = vec![
+        CreateTableNewsMigration::new().run(&mut client),
+        AddNewsRecordsMigration::new().run(&mut client),
+    ];
 
     for result in migrations.iter() {
         match result {

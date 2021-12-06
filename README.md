@@ -52,7 +52,8 @@ In a separate terminal:
 ```bash
 just db-news
 just db-news-add-some
-just db-news
+just db-news <id>
+just db-news-all
 just db-news-delete <id>
 just db-news-delete-all
 ```
