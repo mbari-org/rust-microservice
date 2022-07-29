@@ -43,7 +43,7 @@ just run-service
 In a separate terminal:
 
 ```bash
-just db-news
+just db-news-all
 just db-news-add-some
 just db-news <id>
 just db-news-all

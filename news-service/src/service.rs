@@ -21,5 +21,5 @@ pub async fn list_news() -> DaoResult<Vec<News>> {
 }
 
 pub async fn insert_news(url: &str, desc: &str) -> DaoResult<News> {
-    news_dao::insert_news(&url, &desc).await
+    news_dao::insert_news(url, desc).await
 }

@@ -5,6 +5,7 @@ extern crate uuid;
 use std::error;
 
 use tokio_postgres::NoTls;
+use uuid::Uuid;
 
 use news_contract::News;
 
@@ -63,7 +64,7 @@ pub async fn insert_news(url: &str, desc: &str) -> DaoResult<News> {
     let client = connect().await?;
     let row = client
         .query(
-            "INSERT INTO news VALUES(uuid_in(md5(random()::text || clock_timestamp()::text)::cstring),$1,$2)",
+            "INSERT INTO news VALUES(uuid_in(md5(random()::text || clock_timestamp()::text)::cstring),$1,$2) RETURNING ID",
             &[&desc, &url],
         ).await?;
 
@@ -72,7 +73,8 @@ pub async fn insert_news(url: &str, desc: &str) -> DaoResult<News> {
     let id = if row.is_empty() {
         String::from("0")
     } else {
-        row.get(0).unwrap().get(0)
+        let uuid: Uuid = row.get(0).unwrap().get(0);
+        uuid.to_string()
     };
     let news = News {
         id,
